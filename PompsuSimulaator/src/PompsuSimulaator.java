@@ -52,21 +52,27 @@ public class PompsuSimulaator extends JFrame {
             // Esimene rida:
             final JLabel misToimub = new JLabel(PompsuInfo.misToimubTekst, JLabel.CENTER); 
             
+            
+            
             // Teine rida:
             final JLabel pudelidTekst = new JLabel("Pudeleid", JLabel.CENTER);
-            final JLabel pudelid = new JLabel(String.valueOf(PompsuInfo.loePudel()), JLabel.CENTER);
+            final JLabel pudelid = new JLabel(""+PompsuInfo.loePudel(), JLabel.CENTER);
             final JLabel rahaTekst = new JLabel("Raha", JLabel.CENTER);
             final JLabel rahaSeis = new JLabel(PompsuInfo.loeRaha() + "€", JLabel.CENTER);
             
-            final JLabel hetkeAsukoht = new JLabel(PompsuInfo.hetkeAsukohtTekst, JLabel.CENTER); 
+            final JLabel hetkeAsukoht = new JLabel(PompsuInfo.asukohaInfo("nimi"), JLabel.CENTER); 
             final JButton myyPudelid = new JButton("Müü pudelid"); 
-            
+            // TODO asukoha kirjeldus
             final JLabel asukohaKirjeldus = new JLabel(PompsuInfo.asukohaKirjeldusTekst, JLabel.CENTER);
             
+            
+            
             // Kolmas rida:
-            final JLabel jargminePeatus = new JLabel(PompsuInfo.jargminePeatusTekst, JLabel.CENTER);
-            final JButton ostaPilet = new JButton("Osta pilet ( 3€ )");
+            final JLabel jargminePeatus = new JLabel(PompsuInfo.asukohaInfo("j2rgmine"), JLabel.CENTER);
+            final JButton ostaPilet = new JButton("Osta pilet ("+PompsuInfo.asukohaInfo("j2rgmiseHind")+"€)");
  
+            
+            
     		// Neljas rida:
             final JButton otsiPudeleid = new JButton("Otsi pudeleid"); 
     		
@@ -138,7 +144,7 @@ public class PompsuSimulaator extends JFrame {
     		
     		otsiPudeleid.addActionListener(new ActionListener() {
     	        public void actionPerformed(ActionEvent arg0) {
-    	        	PompsuInfo.pudelClick(PompsuInfo.asukoht);
+    	        	PompsuInfo.pudelClick();
     	            pudelid.setText(String.valueOf(PompsuInfo.loePudel()));
     	            misToimub.setText("<html><body><div style='text-align: center;'>"+PompsuInfo.otsinguTulemus()+"</div></body></html>");
     	            repaint();
@@ -147,7 +153,7 @@ public class PompsuSimulaator extends JFrame {
     		
     		myyPudelid.addActionListener(new ActionListener() {
     	        public void actionPerformed(ActionEvent arg0) {
-    	        	PompsuInfo.myyPudelid(PompsuInfo.asukoht);
+    	        	PompsuInfo.myyPudelid();
     	            pudelid.setText(String.valueOf(PompsuInfo.loePudel()));
     	            rahaSeis.setText(String.valueOf(PompsuInfo.loeRaha()+"€"));
     	            repaint();
