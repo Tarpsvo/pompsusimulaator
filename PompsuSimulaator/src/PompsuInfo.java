@@ -6,6 +6,8 @@ public class PompsuInfo {
 
 	// Algne tervitav tekst
 	public static String misToimubTekst = "Ärkad pärast joomingut kivimäe poe juures üles...";
+	
+	// TODO random sündmus koos dialoogiga
 
 	// Massiiv võimalike asukohtade nimedega
 	public static String[] asukohad = 
@@ -57,9 +59,9 @@ public class PompsuInfo {
 
 	// Tagastab hetke rahaseisu
 	public static double loeRaha() {
-		raha = raha * 100;
+		raha *= 100;
 		raha = Math.round(raha);
-		raha = raha / 100;
+		raha /= 100;
 		return raha;
 	}
 
