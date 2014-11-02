@@ -1,5 +1,5 @@
 public class PompsuInfo {
-	public static String versioon = "0.0.1";
+	public static String versioon = "0.0.2";
 	private static double raha = 0.0;
 	private static int pudeleid = 0;
 	public static int asukoht = 0;
@@ -35,15 +35,6 @@ public class PompsuInfo {
 		0.03,
 		0.04
 	};
-	
-	public static String jargminePeatusTekst = "<html><body>"
-			+ "<div style='text-align: center;'>" + "Nõmme Comarket ";
-
-	public static String asukohaKirjeldusTekst = "<html><body>"
-			+ "<div style='text-align: center;'>"
-			+ "Kivimäe poe läheduses pudeleid otsides võid iga otsimiskorraga kuni 6 pudelit."
-			+ "<br>"
-			+ "Kivimäe taaraautomaat annab sulle 0.05€ iga pudeli eest.";
 
 	private static int viimatiLeitudPudelid = 0;
 
@@ -91,8 +82,7 @@ public class PompsuInfo {
 		} else {
 			raha -= soiduHind;
 			asukoht = asukoht+1;
-			System.out.println("uue asukoha number on: "+asukoht);
-			return "Istud bussi tahaotsa ja vaatad aknast, kuidas kivimäe pood kaugusesse kaob..."; 
+			return "Istud bussi tahaotsa ja vaatad aknast, kuidas "+asukohad[asukoht-1]+" kaugusesse kaob..."; 
 			// TODO Targem tekst
 		}
 	}
@@ -120,6 +110,15 @@ public class PompsuInfo {
 			}
 		}
 		return info;
+	}
+	
+	public static String asukohaKirjeldus() {
+		String esimeneSona[] = asukohad[asukoht].split(" ", 2);
+		return "<html><body>"
+				+ "<div style='text-align: center;'>"
+				+ asukohad[asukoht]+" läheduses pudeleid otsides võid iga otsimiskorraga kuni "+maxPudeleid[asukoht]+" pudelit."
+				+ "<br>"
+				+ esimeneSona[0]+" taaraautomaat annab sulle "+pudeliHind[asukoht]+"€ iga pudeli eest.";
 	}
 	
 	

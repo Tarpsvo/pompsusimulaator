@@ -63,7 +63,7 @@ public class PompsuSimulaator extends JFrame {
             final JLabel hetkeAsukoht = new JLabel(PompsuInfo.asukohaInfo("nimi"), JLabel.CENTER); 
             final JButton myyPudelid = new JButton("Müü pudelid"); 
             // TODO asukoha kirjeldus
-            final JLabel asukohaKirjeldus = new JLabel(PompsuInfo.asukohaKirjeldusTekst, JLabel.CENTER);
+            final JLabel asukohaKirjeldus = new JLabel(PompsuInfo.asukohaKirjeldus(), JLabel.CENTER);
             
             
             
@@ -169,6 +169,7 @@ public class PompsuSimulaator extends JFrame {
     	        	ostaPilet.setText(PompsuInfo.asukohaInfo("jargmiseHindOsta"));
     	        	jargminePeatus.setText(PompsuInfo.asukohaInfo("jargmiseNimi"));
     	        	ostaPilet.setEnabled(!PompsuInfo.viimane());
+    	        	asukohaKirjeldus.setText(PompsuInfo.asukohaKirjeldus());
     	            repaint();
     	        }
     	    });
