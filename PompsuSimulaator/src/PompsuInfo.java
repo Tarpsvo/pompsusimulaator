@@ -19,21 +19,21 @@ public class PompsuInfo {
 		{	
 		0,
 		1,
-		1
+		3
 	};
 	
 	public static int[] maxPudeleid = 
 		{	
 		2,
-		4,
-		7
+		3,
+		5
 	};
 	
 	public static double[] pudeliHind = 
 		{	
 		0.02,
-		0.03,
-		0.04
+		0.02,
+		0.03
 	};
 
 	private static int viimatiLeitudPudelid = 0;
@@ -116,9 +116,10 @@ public class PompsuInfo {
 		String esimeneSona[] = asukohad[asukoht].split(" ", 2);
 		return "<html><body>"
 				+ "<div style='text-align: center;'>"
-				+ asukohad[asukoht]+" läheduses pudeleid otsides võid iga otsimiskorraga kuni "+maxPudeleid[asukoht]+" pudelit."
+				+ "Koha "+asukohad[asukoht]+" läheduses pudeleid otsides võid iga otsimiskorraga leida kuni "
+				+ "<span style='font-size: 9px;'>"+maxPudeleid[asukoht]+"</span> pudelit."
 				+ "<br>"
-				+ esimeneSona[0]+" taaraautomaat annab sulle "+pudeliHind[asukoht]+"€ iga pudeli eest.";
+				+ esimeneSona[0]+" taaraautomaat annab sulle <span style='font-size: 9px;'>"+pudeliHind[asukoht]+"€</span> iga pudeli eest.";
 	}
 	
 	

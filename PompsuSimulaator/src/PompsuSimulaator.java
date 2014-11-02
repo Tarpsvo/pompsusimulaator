@@ -118,14 +118,14 @@ public class PompsuSimulaator extends JFrame {
     		// ---- hetkeAsukoht stiil
     		hetkeAsukoht.setBorder(BorderFactory.createTitledBorder(null,"Asukoht", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Verdana", 1, 12), Color.WHITE));
     		hetkeAsukoht.setForeground(Color.WHITE);
-    		hetkeAsukoht.setFont(new Font("Arial", 1, 11));
+    		hetkeAsukoht.setFont(new Font("Arial", 1, 12));
     		// ---- hetkeAsukoht stiil
     
-    		// ---- soiduHind stiil
+    		// ---- jargminePeatus stiil
     		jargminePeatus.setBorder(BorderFactory.createTitledBorder(null,"Järgmine peatus", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Verdana", 1, 12), Color.WHITE));
     		jargminePeatus.setForeground(Color.WHITE);
-    		jargminePeatus.setFont(new Font("Arial", 1, 11));
-    		// ---- soiduHind stiil
+    		jargminePeatus.setFont(new Font("Arial", 1, 12));
+    		// ---- jargminePeatus stiil
     
     		// ---- otsiPudeleid stiil
     		otsiPudeleid.setFont(new Font("Verdana", 1, 16));
