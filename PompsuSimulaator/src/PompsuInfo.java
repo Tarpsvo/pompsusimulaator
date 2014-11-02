@@ -18,8 +18,8 @@ public class PompsuInfo {
 	public static int[] asukohaHinnad = 
 		{	
 		0,
-		4,
-		8
+		1,
+		1
 	};
 	
 	public static int[] maxPudeleid = 
@@ -84,14 +84,16 @@ public class PompsuInfo {
 		pudeleid = 0;
 	}
 	
-	public static void s6idaJ2rgmisesse() {
-		int s6iduHind = asukohaHinnad[asukoht+1];
-		if (loeRaha() < s6iduHind) {
-			misToimubTekst = "Sul ei ole selle reisi sooritamiseks raha"; // TODO Targem tekst
+	public static String soidaJargmisesse() {
+		int soiduHind = asukohaHinnad[asukoht+1];
+		if (raha < soiduHind) {
+			return "Sul ei ole selle reisi sooritamiseks raha"; // TODO Targem tekst
 		} else {
-			raha -= s6iduHind;
-			asukoht++;
-			misToimubTekst = "Istud bussi tahaotsa ja vaatad aknast, kuidas kivimäe pood kaugusesse kaob...";
+			raha -= soiduHind;
+			asukoht = asukoht+1;
+			System.out.println("uue asukoha number on: "+asukoht);
+			return "Istud bussi tahaotsa ja vaatad aknast, kuidas kivimäe pood kaugusesse kaob..."; 
+			// TODO Targem tekst
 		}
 	}
 	
@@ -104,10 +106,18 @@ public class PompsuInfo {
 			info = asukohad[asukoht]; break;
 		case "kirjeldus":
 			info = ""; break;
-		case "j2rgmine":
-			info = asukohad[asukoht+1]; break;
-		case "j2rgmiseHind":
-			info = String.valueOf(asukohaHinnad[asukoht+1]);
+		case "jargmiseNimi":
+			if (!viimane()) {
+				info = asukohad[asukoht+1]; break;
+			} else {
+				info = "-";
+			}
+		case "jargmiseHindOsta":
+			if (!viimane()) {
+				info = "Osta pilet ("+String.valueOf(asukohaHinnad[asukoht+1])+"€)";
+			} else {
+				info = "- Oled jõudnud lõppu -";
+			}
 		}
 		return info;
 	}
@@ -118,6 +128,11 @@ public class PompsuInfo {
 		int vahemik = max - min + 1;
 		int summa = (int) (Math.random() * vahemik);
 		return summa + min;
+	}
+	
+	// Tagastab true, kui on viimane asukoht, false kui ei ole viimane
+	public static boolean viimane() {
+		return (asukoht < asukohad.length-1) ? false : true;
 	}
 
 }

@@ -28,7 +28,7 @@ public class PompsuSimulaator extends JFrame {
 
                 JFrame aken = new JFrame("Pompsusimulaator "+PompsuInfo.versioon);
                 aken.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                aken.add(new m2nguPane());
+                aken.add(new manguPane());
                 aken.setResizable(false);
                 aken.pack();
                 aken.setLocationRelativeTo(null);
@@ -39,9 +39,9 @@ public class PompsuSimulaator extends JFrame {
 	
 	
 	// Teeb akna sisu (raami sisu pmst)
-	public class m2nguPane extends JLabel {
+	public class manguPane extends JLabel {
 
-		public m2nguPane() {
+		public manguPane() {
             try {
             	setIcon(new ImageIcon(ImageIO.read(getClass().getResource("/taust.jpg"))));
             } catch (IOException ex) {
@@ -68,8 +68,8 @@ public class PompsuSimulaator extends JFrame {
             
             
             // Kolmas rida:
-            final JLabel jargminePeatus = new JLabel(PompsuInfo.asukohaInfo("j2rgmine"), JLabel.CENTER);
-            final JButton ostaPilet = new JButton("Osta pilet ("+PompsuInfo.asukohaInfo("j2rgmiseHind")+"€)");
+            final JLabel jargminePeatus = new JLabel(PompsuInfo.asukohaInfo("jargmiseNimi"), JLabel.CENTER);
+            final JButton ostaPilet = new JButton(PompsuInfo.asukohaInfo("jargmiseHindOsta"));
  
             
             
@@ -159,6 +159,19 @@ public class PompsuSimulaator extends JFrame {
     	            repaint();
     	        }
     	    });
+    		
+    		ostaPilet.addActionListener(new ActionListener() {
+    	        public void actionPerformed(ActionEvent arg0) {
+    	        	//PompsuInfo.soidaJargmisesse();
+    	        	misToimub.setText(PompsuInfo.soidaJargmisesse());
+    	        	rahaSeis.setText(String.valueOf(PompsuInfo.loeRaha()+"€"));
+    	        	hetkeAsukoht.setText(PompsuInfo.asukohaInfo("nimi"));
+    	        	ostaPilet.setText(PompsuInfo.asukohaInfo("jargmiseHindOsta"));
+    	        	jargminePeatus.setText(PompsuInfo.asukohaInfo("jargmiseNimi"));
+    	        	ostaPilet.setEnabled(!PompsuInfo.viimane());
+    	            repaint();
+    	        }
+    	    });
     		// ---- Akna komponendid
 
     
@@ -172,7 +185,7 @@ public class PompsuSimulaator extends JFrame {
     		c.gridy = 0;
     		c.gridwidth = 4;
     		c.ipady = 25;
-    		seaSuurus(misToimub, 530, 50);
+    		seaSuurus(misToimub, 540, 50);
     		add(misToimub, c);
     		// ---- misToimub GBC
     
@@ -203,12 +216,12 @@ public class PompsuSimulaator extends JFrame {
     		c.gridy = 1;
     		c.gridx = 2;
     		c.ipady = 15;
-    		c.ipadx = 5;
     		c.anchor = GridBagConstraints.PAGE_START;
     		add(hetkeAsukoht, c);
     
     		c.anchor = GridBagConstraints.PAGE_END;
     		c.ipady = 5;
+    		c.ipadx = 45;
     		add(myyPudelid, c);
     		// ---- hetkeAsukoht GBC
     
