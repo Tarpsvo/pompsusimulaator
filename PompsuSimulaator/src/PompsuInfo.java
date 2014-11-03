@@ -69,7 +69,7 @@ public class PompsuInfo {
 
 	// Lisab asukohale vastavalt ühe kliki jagu pudeleid
 	public static void pudelClick() {
-			viimatiLeitudPudelid = random(0, maxPudeleid[asukoht]); // TODO Pudelite arv asukohaks sõltuvaks
+			viimatiLeitudPudelid = random(0, maxPudeleid[asukoht]);
 			pudeleid += viimatiLeitudPudelid;
 	}
 
