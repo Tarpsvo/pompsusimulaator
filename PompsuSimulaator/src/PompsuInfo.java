@@ -1,82 +1,86 @@
+// TODO Nimekiri:
+// TODO Random sündmused
+// TODO Kaart
+// TODO Seljakott asjadega
+// TODO Saavutused
+
 public class PompsuInfo {
+	// ---- Lihtsad arvulised väärtused/konstandid ----
 	public static String versioon = "0.0.2";
 	private static double raha = 0.0;
 	private static int pudeleid = 0;
 	public static int asukoht = 0;
+	public static String misToimubTekst = "Ärkad pärast joomingut kivimäe poe juures üles..."; // Algne tervitus
+	private static int viimatiLeitudPudelid = 0;
 
-	// Algne tervitav tekst
-	public static String misToimubTekst = "Ärkad pärast joomingut kivimäe poe juures üles...";
-	
-	// TODO random sündmus koos dialoogiga
-
-	// Massiiv võimalike asukohtade nimedega
-	public static String[] asukohad = 
-		{	
+	// ---- Mängu sisu info massiivid ----
+	private static String[] asukohad = {	// Asukohtade NIMED
 		"Kivimäe pood",
 		"Nõmme Comarket",
 		"Kadaka Selver"
 	};
 	
-	public static int[] asukohaHinnad = 
-		{	
+	private static int[] asukohaHinnad = { // Asukohta sõitmise HINNAD
 		0,
 		1,
 		3
 	};
 	
-	public static int[] maxPudeleid = 
-		{	
+	private static int[] maxPudeleid = {	// Maksimaalne pudelite arv
 		2,
 		3,
 		5
 	};
 	
-	public static double[] pudeliHind = 
-		{	
+	private static double[] pudeliHind = { // Ühe pudeli hind
 		0.02,
 		0.02,
 		0.03
 	};
 
-	private static int viimatiLeitudPudelid = 0;
-
-	// Genereerib otsingu tulemuse teksti leitud pudelite ja suvaliste sündmuste põhjal
-	// TODO Lisa suvalised sündmused
-	public static String otsinguTulemus() {
-		if (viimatiLeitudPudelid == 1) {
-			return "Leidsid ühe pudeli.";
-		} else if (viimatiLeitudPudelid == 0) {
-			return "Ei leidnud ühtegi pudelit.<br>Tundsid ka natuke häbi, kui tühjad käed prügikastist välja tõmbasid.";
-		} else {
-		return "Leidsid " + viimatiLeitudPudelid + " pudelit.";
-		}
-	}
-
-	// Tagastab hetkel olevate pudelite arvu
-	public static int loePudel() {
+	
+	// ---- Mängu põhiosa funktsioonid ----
+	
+	// @return Pudelite arv
+	public static int pudeleid() {
 		return pudeleid;
 	}
 
-	// Tagastab hetke rahaseisu
-	public static double loeRaha() {
+	// @return Rahaseis kahe komakohaga
+	public static double raha() {
 		raha *= 100;
 		raha = Math.round(raha);
 		raha /= 100;
 		return raha;
 	}
+	
+	// Genereerib otsingu tulemuse teksti leitud pudelite ja suvaliste sündmuste põhjal
+	// @return Tekst, mis ütleb leidmise tulemuse
+	public static String otsinguTulemus() {
+		if (viimatiLeitudPudelid == 1) {
+			return "Leidsid ühe pudeli.";
+		} else if (viimatiLeitudPudelid == 0) {
+			return "Ei leidnud ühtegi pudelit.<br>"
+					+ "Tundsid ka natuke häbi, kui tühjad käed prügikastist välja tõmbasid.";
+		} else {
+		return "Leidsid " + viimatiLeitudPudelid + " pudelit.";
+		}
+	}
 
-	// Annab kliki eventi puhul pudeleid. Pudelite arv sõltub asukohast
+	// Lisab asukohale vastavalt ühe kliki jagu pudeleid
 	public static void pudelClick() {
 			viimatiLeitudPudelid = random(0, maxPudeleid[asukoht]); // TODO Pudelite arv asukohaks sõltuvaks
 			pudeleid += viimatiLeitudPudelid;
 	}
 
-	// Müüb kõik pudelid ja annab raha. Pudelite eest saadud raha sõltub asukohast
+	// Müüb kõik pudelid asukohale vastava hinnaga
 	public static void myyPudelid() {
 		raha += pudeleid * pudeliHind[asukoht];
 		pudeleid = 0;
 	}
 	
+	// Reisib ühe asukoha võrra edasi
+	// @return Tekst järgmisesse kohta sõitmise kohta
 	public static String soidaJargmisesse() {
 		int soiduHind = asukohaHinnad[asukoht+1];
 		if (raha < soiduHind) {
@@ -89,15 +93,15 @@ public class PompsuInfo {
 		}
 	}
 	
-	// Tagastab info asukoha kohta:
-	// 1: asukoha nimi; 2: asukoha kirjeldus
+	// @param tyyp String, mis määrab, mis tüüpi info tagastatakse
+	// @return "nimi" - hetkeasukoha nimi
+	// @return "jargmiseNimi" - järgmise asukoha nimi
+	// @return "jargmiseHindOsta" - genereerib 'Osta pilet' nupu teksti
 	public static String asukohaInfo(String tyyp) {
 		String info = "";
 		switch (tyyp) {
 		case "nimi":
 			info = asukohad[asukoht]; break;
-		case "kirjeldus":
-			info = ""; break;
 		case "jargmiseNimi":
 			if (!viimane()) {
 				info = asukohad[asukoht+1]; break;
@@ -114,6 +118,8 @@ public class PompsuInfo {
 		return info;
 	}
 	
+	// Genereerib asukoha kirjelduse
+	// @return asukoha kirjeldus
 	public static String asukohaKirjeldus() {
 		String esimeneSona[] = asukohad[asukoht].split(" ", 2);
 		return "<html><body>"
@@ -125,14 +131,20 @@ public class PompsuInfo {
 	}
 	
 	
-	// Meetod, mis tagastab antud vahemikus suvalise arvu
+	
+	
+	
+	// ---- Lisafunktsioonid, mis teevad elu lihtsamaks
+	// @param min Minimaalne väärtus
+	// @param max Maksimaalne väärtus
+	// @return Suvaline arv nende kahe väärtuse vahel (k.a.)
 	public static int random(int min, int max) {
 		int vahemik = max - min + 1;
 		int summa = (int) (Math.random() * vahemik);
 		return summa + min;
 	}
 	
-	// Tagastab true, kui on viimane asukoht, false kui ei ole viimane
+	// @return true, kui on viimane, false kui ei ole viimane
 	public static boolean viimane() {
 		return (asukoht < asukohad.length-1) ? false : true;
 	}
