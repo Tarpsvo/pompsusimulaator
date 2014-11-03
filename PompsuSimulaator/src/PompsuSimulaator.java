@@ -42,11 +42,7 @@ public class PompsuSimulaator extends JFrame {
 
 		// Konstruktor akna jaoks
 		public manguPane() {
-            try {
-            	setIcon(new ImageIcon(ImageIO.read(getClass().getResource("/taust.jpg"))));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            muudaTaust("taust.jpg");
     
     		// ---- Akna komponendid
             // -- Esimene rida:
@@ -103,16 +99,18 @@ public class PompsuSimulaator extends JFrame {
     		pudelid.setBackground(new Color(255, 255, 255, 165));
     		pudelid.setFont(new Font("Arial", 1, 12));
     		seaSuurus(pudelid, 35, 15);
+    		myyPudelid.setEnabled(false);
     
     		// hetkeAsukoht stiil
     		hetkeAsukoht.setBorder(BorderFactory.createTitledBorder(null,"Asukoht", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Verdana", 1, 12), Color.WHITE));
-    		hetkeAsukoht.setForeground(Color.WHITE);
-    		hetkeAsukoht.setFont(new Font("Arial", 1, 12));
+    		hetkeAsukoht.setForeground(new Color(0xf29324));
+    		hetkeAsukoht.setFont(new Font("Verdana", 1, 13));
     
     		// jargminePeatus stiil
     		jargminePeatus.setBorder(BorderFactory.createTitledBorder(null,"Järgmine peatus", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Verdana", 1, 12), Color.WHITE));
-    		jargminePeatus.setForeground(Color.WHITE);
-    		jargminePeatus.setFont(new Font("Arial", 1, 12));
+    		jargminePeatus.setForeground(new Color(0xf29324));
+    		jargminePeatus.setFont(new Font("Verdana", 1, 13));
+    		ostaPilet.setEnabled(false);
     
     		//  otsiPudeleid stiil
     		otsiPudeleid.setFont(new Font("Verdana", 1, 16));
@@ -122,6 +120,8 @@ public class PompsuSimulaator extends JFrame {
     		asukohaKirjeldus.setForeground(Color.WHITE);
     		seaSuurus(asukohaKirjeldus, 300, 50);
     		asukohaKirjeldus.setFont(new Font("Arial", 1, 11));
+    		
+    		
     		
     		// ---- GBC ülesehitus
     		// misToimub GBC
@@ -210,6 +210,7 @@ public class PompsuSimulaator extends JFrame {
     	        public void actionPerformed(ActionEvent arg0) {
     	        	PompsuInfo.pudelClick();
     	            pudelid.setText(String.valueOf(PompsuInfo.pudeleid()));
+    	            if (PompsuInfo.pudeleid() != 0) myyPudelid.setEnabled(true);
     	            misToimub.setText("<html><body><div style='text-align: center;'>"+PompsuInfo.otsinguTulemus()+"</div></body></html>");
     	            repaint();
     	        }
@@ -221,6 +222,8 @@ public class PompsuSimulaator extends JFrame {
     	        	PompsuInfo.myyPudelid();
     	            pudelid.setText(String.valueOf(PompsuInfo.pudeleid()));
     	            rahaSeis.setText(String.valueOf(PompsuInfo.raha()+"€"));
+    	            myyPudelid.setEnabled(false);
+    	            if (!PompsuInfo.viimane() && PompsuInfo.raha() >= Integer.parseInt(PompsuInfo.asukohaInfo("jargmiseHind"))) ostaPilet.setEnabled(true);
     	            repaint();
     	        }
     	    });
@@ -233,18 +236,28 @@ public class PompsuSimulaator extends JFrame {
     	        	hetkeAsukoht.setText(PompsuInfo.asukohaInfo("nimi"));
     	        	ostaPilet.setText(PompsuInfo.asukohaInfo("jargmiseHindOsta"));
     	        	jargminePeatus.setText(PompsuInfo.asukohaInfo("jargmiseNimi"));
-    	        	ostaPilet.setEnabled(!PompsuInfo.viimane());
+    	        	ostaPilet.setEnabled(false);
     	        	asukohaKirjeldus.setText(PompsuInfo.asukohaKirjeldus());
+    	        	muudaTaust("taust2.jpg");
     	            repaint();
     	        }
     	    });
 
         }
         
+		// Seab komponendi suuruse
     	private void seaSuurus(Component comp, int w, int h) {
     		comp.setMinimumSize(new Dimension(w, h));
     		comp.setPreferredSize(new Dimension(w, h));
     		comp.setMaximumSize(new Dimension(w, h));
+    	}
+    	
+    	private void muudaTaust (String pilt) {
+    		try {
+            	setIcon(new ImageIcon(ImageIO.read(getClass().getResource("/"+pilt))));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
     	}
 	
 	}
