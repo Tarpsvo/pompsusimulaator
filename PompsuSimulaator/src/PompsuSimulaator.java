@@ -56,9 +56,9 @@ public class PompsuSimulaator extends JFrame {
             
             // Teine rida:
             final JLabel pudelidTekst = new JLabel("Pudeleid", JLabel.CENTER);
-            final JLabel pudelid = new JLabel(""+PompsuInfo.loePudel(), JLabel.CENTER);
+            final JLabel pudelid = new JLabel(""+PompsuInfo.pudeleid(), JLabel.CENTER);
             final JLabel rahaTekst = new JLabel("Raha", JLabel.CENTER);
-            final JLabel rahaSeis = new JLabel(PompsuInfo.loeRaha() + "€", JLabel.CENTER);
+            final JLabel rahaSeis = new JLabel(PompsuInfo.raha() + "€", JLabel.CENTER);
             
             final JLabel hetkeAsukoht = new JLabel(PompsuInfo.asukohaInfo("nimi"), JLabel.CENTER); 
             final JButton myyPudelid = new JButton("Müü pudelid"); 
@@ -145,7 +145,7 @@ public class PompsuSimulaator extends JFrame {
     		otsiPudeleid.addActionListener(new ActionListener() {
     	        public void actionPerformed(ActionEvent arg0) {
     	        	PompsuInfo.pudelClick();
-    	            pudelid.setText(String.valueOf(PompsuInfo.loePudel()));
+    	            pudelid.setText(String.valueOf(PompsuInfo.pudeleid()));
     	            misToimub.setText("<html><body><div style='text-align: center;'>"+PompsuInfo.otsinguTulemus()+"</div></body></html>");
     	            repaint();
     	        }
@@ -154,8 +154,8 @@ public class PompsuSimulaator extends JFrame {
     		myyPudelid.addActionListener(new ActionListener() {
     	        public void actionPerformed(ActionEvent arg0) {
     	        	PompsuInfo.myyPudelid();
-    	            pudelid.setText(String.valueOf(PompsuInfo.loePudel()));
-    	            rahaSeis.setText(String.valueOf(PompsuInfo.loeRaha()+"€"));
+    	            pudelid.setText(String.valueOf(PompsuInfo.pudeleid()));
+    	            rahaSeis.setText(String.valueOf(PompsuInfo.raha()+"€"));
     	            repaint();
     	        }
     	    });
@@ -164,7 +164,7 @@ public class PompsuSimulaator extends JFrame {
     	        public void actionPerformed(ActionEvent arg0) {
     	        	//PompsuInfo.soidaJargmisesse();
     	        	misToimub.setText(PompsuInfo.soidaJargmisesse());
-    	        	rahaSeis.setText(String.valueOf(PompsuInfo.loeRaha()+"€"));
+    	        	rahaSeis.setText(String.valueOf(PompsuInfo.raha()+"€"));
     	        	hetkeAsukoht.setText(PompsuInfo.asukohaInfo("nimi"));
     	        	ostaPilet.setText(PompsuInfo.asukohaInfo("jargmiseHindOsta"));
     	        	jargminePeatus.setText(PompsuInfo.asukohaInfo("jargmiseNimi"));
