@@ -102,6 +102,8 @@ public class PompsuInfo {
 		switch (tyyp) {
 		case "nimi":
 			info = asukohad[asukoht]; break;
+		case "jargmiseHind":
+			info = ""+asukohaHinnad[asukoht+1]; break;
 		case "jargmiseNimi":
 			if (!viimane()) {
 				info = asukohad[asukoht+1]; break;
@@ -123,11 +125,11 @@ public class PompsuInfo {
 	public static String asukohaKirjeldus() {
 		String esimeneSona[] = asukohad[asukoht].split(" ", 2);
 		return "<html><body>"
-				+ "<div style='text-align: center;'>"
+				+ "<div style='text-align: center; font-size: 9px;'>"
 				+ "Koha "+asukohad[asukoht]+" läheduses pudeleid otsides võid iga otsimiskorraga leida kuni "
-				+ "<span style='font-size: 9px;'>"+maxPudeleid[asukoht]+"</span> pudelit."
+				+ "<span style='font-size: 11px; color: #f29324;'>"+maxPudeleid[asukoht]+"</span> pudelit."
 				+ "<br>"
-				+ esimeneSona[0]+" taaraautomaat annab sulle <span style='font-size: 9px;'>"+pudeliHind[asukoht]+"€</span> iga pudeli eest.";
+				+ esimeneSona[0]+" taaraautomaat annab sulle <span style='font-size: 11px; color: #f29324;'>"+pudeliHind[asukoht]+"€</span> iga pudeli eest.";
 	}
 	
 	
