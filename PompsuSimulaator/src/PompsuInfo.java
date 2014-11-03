@@ -55,7 +55,7 @@ public class PompsuInfo {
 	}
 	
 	// Genereerib otsingu tulemuse teksti leitud pudelite ja suvaliste sündmuste põhjal
-	// @return Tekst, mis ütleb leidmise tulemuse
+	// @return Tekst, mis ütleb otsingu tulemuse
 	public static String otsinguTulemus() {
 		if (viimatiLeitudPudelid == 1) {
 			return "Leidsid ühe pudeli.";
