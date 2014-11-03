@@ -4,14 +4,18 @@
 // TODO Seljakott asjadega
 // TODO Saavutused
 
+// TODO Kilekott läks katki, kaotasid pudeleid
+// TODO Makaagid võtsid sult paar pudelit
+
 public class PompsuInfo {
 	// ---- Lihtsad arvulised väärtused/konstandid ----
-	public static String versioon = "0.0.2";
+	public static String versioon = "0.0.3";
 	private static double raha = 0.0;
 	private static int pudeleid = 0;
 	public static int asukoht = 0;
 	public static String misToimubTekst = "Ärkad pärast joomingut kivimäe poe juures üles..."; // Algne tervitus
 	private static int viimatiLeitudPudelid = 0;
+	private static double lihtsaSundmuseVoimalus = 0.1;
 
 	// ---- Mängu sisu info massiivid ----
 	private static String[] asukohad = {	// Asukohtade NIMED
@@ -36,6 +40,15 @@ public class PompsuInfo {
 		0.02,
 		0.02,
 		0.03
+	};
+	
+	private static String[][] lihtsadSundmused = {
+		{"Su kilekott purunes ootamatult, pidid mõned pudelid maha jätma...",
+			"pudel", "-3"
+		},
+		{"Makaagid tulid sind ähvardama, nende eest joostes kaotasid mõned pudelid",
+			"pudel", "-3"
+		}	
 	};
 
 	
@@ -74,6 +87,7 @@ public class PompsuInfo {
 	}
 
 	// Müüb kõik pudelid asukohale vastava hinnaga
+	// TODO Tekst, mis ütleb palju müüsid ja said
 	public static void myyPudelid() {
 		raha += pudeleid * pudeliHind[asukoht];
 		pudeleid = 0;
@@ -134,6 +148,22 @@ public class PompsuInfo {
 	
 	
 	
+	
+	public static String lihtneSundmus() {
+		String tekst = "";
+		if(Math.random() < lihtsaSundmuseVoimalus) {
+			int sundmus = random(0, lihtsadSundmused.length-1);
+			tekst = lihtsadSundmused[sundmus][0];
+			String tyyp = lihtsadSundmused[sundmus][1];
+			int arv = Integer.parseInt(lihtsadSundmused[sundmus][2]);
+			arv = (arv < 0) ? random(arv, 0) : random(0, arv);
+			if (tyyp == "pudel") pudeleid += arv;
+			if (pudeleid < 0) pudeleid = 0;
+			if (tyyp == "raha") raha += arv;
+			if (raha < 0) raha = 0;
+		}
+		return tekst;
+	}
 	
 	
 	// ---- Lisafunktsioonid, mis teevad elu lihtsamaks

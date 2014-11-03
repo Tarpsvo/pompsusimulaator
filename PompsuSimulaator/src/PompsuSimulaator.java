@@ -209,9 +209,18 @@ public class PompsuSimulaator extends JFrame {
     		otsiPudeleid.addActionListener(new ActionListener() {
     	        public void actionPerformed(ActionEvent arg0) {
     	        	PompsuInfo.pudelClick();
-    	            pudelid.setText(String.valueOf(PompsuInfo.pudeleid()));
+    	        	PompsuEventid.eventiKontroll();
+    	        	
     	            if (PompsuInfo.pudeleid() != 0) myyPudelid.setEnabled(true);
-    	            misToimub.setText("<html><body><div style='text-align: center;'>"+PompsuInfo.otsinguTulemus()+"</div></body></html>");
+    	            
+    	            String lihtneSundmus = PompsuInfo.lihtneSundmus();
+    	            String tekst = "";
+    	            if (PompsuInfo.lihtneSundmus() != "") tekst = lihtneSundmus; else tekst = PompsuInfo.otsinguTulemus();
+    	            
+    	            misToimub.setText("<html><body><div style='text-align: center;'>"+tekst+"</div></body></html>");
+    	            
+    	            rahaSeis.setText(String.valueOf(PompsuInfo.raha()+"€"));
+    	            pudelid.setText(String.valueOf(PompsuInfo.pudeleid()));
     	            repaint();
     	        }
     	    });
