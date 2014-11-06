@@ -1,5 +1,5 @@
 import javax.swing.JOptionPane;
-
+// Proovime commitida
 
 public class PompsuEventid {
 
@@ -10,11 +10,11 @@ public class PompsuEventid {
 	// Bussijaamas magav kodutu
 	private static void event1() {
 		Object[] valikud = {
-				"Võta mehe taarakott",
+				"Vï¿½ta mehe taarakott",
                 "Otsi ta taskutest raha",
                 "Ei tee midagi"};
 		int n = JOptionPane.showOptionDialog(null,
-		"Leidsid bussipeatuse pingilt magava saatusekaaslase. Kuidas käitud?",
+		"Leidsid bussipeatuse pingilt magava saatusekaaslase. Kuidas kï¿½itud?",
 		"Midagi juhtus",
 		JOptionPane.YES_NO_CANCEL_OPTION,
 		JOptionPane.QUESTION_MESSAGE,
