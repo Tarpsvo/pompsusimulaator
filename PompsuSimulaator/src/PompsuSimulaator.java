@@ -1,5 +1,3 @@
-
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -52,9 +50,9 @@ public class PompsuSimulaator extends JFrame {
             final JLabel pudelidTekst = new JLabel("Pudeleid", JLabel.CENTER);
             final JLabel pudelid = new JLabel(""+PompsuInfo.pudeleid(), JLabel.CENTER);
             final JLabel rahaTekst = new JLabel("Raha", JLabel.CENTER);
-            final JLabel rahaSeis = new JLabel(PompsuInfo.raha() + "€", JLabel.CENTER);
+            final JLabel rahaSeis = new JLabel(PompsuInfo.raha() + "â‚¬", JLabel.CENTER);
             final JLabel hetkeAsukoht = new JLabel(PompsuInfo.asukohaInfo("nimi"), JLabel.CENTER); 
-            final JButton myyPudelid = new JButton("Müü pudelid"); 
+            final JButton myyPudelid = new JButton("MÃ¼Ã¼ pudelid"); 
             final JLabel asukohaKirjeldus = new JLabel(PompsuInfo.asukohaKirjeldus(), JLabel.CENTER);
             
             // -- Kolmas rida:
@@ -107,7 +105,7 @@ public class PompsuSimulaator extends JFrame {
     		hetkeAsukoht.setFont(new Font("Verdana", 1, 13));
     
     		// jargminePeatus stiil
-    		jargminePeatus.setBorder(BorderFactory.createTitledBorder(null,"Järgmine peatus", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Verdana", 1, 12), Color.WHITE));
+    		jargminePeatus.setBorder(BorderFactory.createTitledBorder(null,"JÃ¤rgmine peatus", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Verdana", 1, 12), Color.WHITE));
     		jargminePeatus.setForeground(new Color(0xf29324));
     		jargminePeatus.setFont(new Font("Verdana", 1, 13));
     		ostaPilet.setEnabled(false);
@@ -123,7 +121,7 @@ public class PompsuSimulaator extends JFrame {
     		
     		
     		
-    		// ---- GBC ülesehitus
+    		// ---- GBC Ã¼lesehitus
     		// misToimub GBC
     		setLayout(new GridBagLayout());
             GridBagConstraints c = new GridBagConstraints();
@@ -219,7 +217,7 @@ public class PompsuSimulaator extends JFrame {
     	            
     	            misToimub.setText("<html><body><div style='text-align: center;'>"+tekst+"</div></body></html>");
     	            
-    	            rahaSeis.setText(String.valueOf(PompsuInfo.raha()+"€"));
+    	            rahaSeis.setText(String.valueOf(PompsuInfo.raha()+"â‚¬"));
     	            pudelid.setText(String.valueOf(PompsuInfo.pudeleid()));
     	            repaint();
     	        }
@@ -230,7 +228,7 @@ public class PompsuSimulaator extends JFrame {
     	        public void actionPerformed(ActionEvent arg0) {
     	        	PompsuInfo.myyPudelid();
     	            pudelid.setText(String.valueOf(PompsuInfo.pudeleid()));
-    	            rahaSeis.setText(String.valueOf(PompsuInfo.raha()+"€"));
+    	            rahaSeis.setText(String.valueOf(PompsuInfo.raha()+"â‚¬"));
     	            myyPudelid.setEnabled(false);
     	            if (!PompsuInfo.viimane() && PompsuInfo.raha() >= Integer.parseInt(PompsuInfo.asukohaInfo("jargmiseHind"))) ostaPilet.setEnabled(true);
     	            repaint();
@@ -241,7 +239,7 @@ public class PompsuSimulaator extends JFrame {
     		ostaPilet.addActionListener(new ActionListener() {
     	        public void actionPerformed(ActionEvent arg0) {
     	        	misToimub.setText(PompsuInfo.soidaJargmisesse());
-    	        	rahaSeis.setText(String.valueOf(PompsuInfo.raha()+"€"));
+    	        	rahaSeis.setText(String.valueOf(PompsuInfo.raha()+"â‚¬"));
     	        	hetkeAsukoht.setText(PompsuInfo.asukohaInfo("nimi"));
     	        	ostaPilet.setText(PompsuInfo.asukohaInfo("jargmiseHindOsta"));
     	        	jargminePeatus.setText(PompsuInfo.asukohaInfo("jargmiseNimi"));

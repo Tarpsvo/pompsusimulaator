@@ -10,11 +10,11 @@ public class PompsuEventid {
 	// Bussijaamas magav kodutu
 	private static void event1() {
 		Object[] valikud = {
-				"V�ta mehe taarakott",
+				"Võta mehe taarakott",
                 "Otsi ta taskutest raha",
                 "Ei tee midagi"};
 		int n = JOptionPane.showOptionDialog(null,
-		"Leidsid bussipeatuse pingilt magava saatusekaaslase. Kuidas k�itud?",
+		"Leidsid bussipeatuse pingilt magava saatusekaaslase. Kuidas käitud?",
 		"Midagi juhtus",
 		JOptionPane.YES_NO_CANCEL_OPTION,
 		JOptionPane.QUESTION_MESSAGE,
