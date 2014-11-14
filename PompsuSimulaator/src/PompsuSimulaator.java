@@ -5,7 +5,9 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class PompsuSimulaator extends JFrame {
 
@@ -13,16 +15,11 @@ public class PompsuSimulaator extends JFrame {
 		new PompsuSimulaator();
 	}
 	
-	// ---- UI akna kokkupanek
+	/** Loob kasutajaliidese akna */
 	public PompsuSimulaator() {
+		/** EventQueue invokeLater tähendab, et UI ja arvutused on eraldi threadidel (?) */
         EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (Exception ex) {
-                }
-
                 JFrame aken = new JFrame("Pompsusimulaator "+PompsuInfo.versioon);
                 aken.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 aken.add(new manguPane());
@@ -67,57 +64,15 @@ public class PompsuSimulaator extends JFrame {
     		
     		
             // ---- Komponentide stiilid
-    		// misToimub stiil
-    		misToimub.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    		misToimub.setFont(new Font("Verdana", 1, 11));
-    		misToimub.setForeground(Color.BLACK);
-    		misToimub.setOpaque(true);
-    		misToimub.setBackground(new Color(255, 255, 255, 165));
-    
-    		// hetkePudelid stiil
-    		pudelidTekst.setFont(new Font("Verdana", 1, 12));
-    		pudelidTekst.setForeground(Color.WHITE);
-    
-    		// hetkeRaha stiil
-    		rahaTekst.setFont(new Font("Verdana", 1, 12));
-    		rahaTekst.setForeground(Color.WHITE);
-    
-    		// rahaSeis stiil
-    		rahaSeis.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    		rahaSeis.setForeground(Color.BLACK);
-    		rahaSeis.setOpaque(true);
-    		rahaSeis.setBackground(new Color(255, 255, 255, 165));
-    		rahaSeis.setFont(new Font("Arial", 1, 12));
-    		seaSuurus(rahaSeis, 35, 15);
-    		
-    		// pudelid stiil
-    		pudelid.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    		pudelid.setForeground(Color.BLACK);
-    		pudelid.setOpaque(true);
-    		pudelid.setBackground(new Color(255, 255, 255, 165));
-    		pudelid.setFont(new Font("Arial", 1, 12));
-    		seaSuurus(pudelid, 35, 15);
+            PompsuStiil.misToimubStiil(misToimub);
+            PompsuStiil.numbriStiil(pudelidTekst, rahaTekst);
+    		PompsuStiil.rahaSeisStiil(rahaSeis);
+    		PompsuStiil.pudelidStiil(pudelid);
+    		PompsuStiil.hetkeAsukohtPeatusStiil(hetkeAsukoht, jargminePeatus);
+    		PompsuStiil.otsiPudeleidStiil(otsiPudeleid);
+    		PompsuStiil.asukohaKirjeldusStiil(asukohaKirjeldus);
     		myyPudelid.setEnabled(false);
-    
-    		// hetkeAsukoht stiil
-    		hetkeAsukoht.setBorder(BorderFactory.createTitledBorder(null,"Asukoht", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Verdana", 1, 12), Color.WHITE));
-    		hetkeAsukoht.setForeground(new Color(0xf29324));
-    		hetkeAsukoht.setFont(new Font("Verdana", 1, 13));
-    
-    		// jargminePeatus stiil
-    		jargminePeatus.setBorder(BorderFactory.createTitledBorder(null,"Järgmine peatus", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Verdana", 1, 12), Color.WHITE));
-    		jargminePeatus.setForeground(new Color(0xf29324));
-    		jargminePeatus.setFont(new Font("Verdana", 1, 13));
     		ostaPilet.setEnabled(false);
-    
-    		//  otsiPudeleid stiil
-    		otsiPudeleid.setFont(new Font("Verdana", 1, 16));
-    
-    		// asukohaKirjeldus stiil
-    		asukohaKirjeldus.setBorder(BorderFactory.createTitledBorder(null,"Asukoha kirjeldus", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Verdana", 1, 12), Color.WHITE));
-    		asukohaKirjeldus.setForeground(Color.WHITE);
-    		seaSuurus(asukohaKirjeldus, 300, 50);
-    		asukohaKirjeldus.setFont(new Font("Arial", 1, 11));
     		
     		
     		
@@ -213,17 +168,15 @@ public class PompsuSimulaator extends JFrame {
     	            
     	            String lihtneSundmus = PompsuInfo.lihtneSundmus();
     	            String tekst = "";
-    	            if (PompsuInfo.lihtneSundmus() != "") tekst = lihtneSundmus; else tekst = PompsuInfo.otsinguTulemus();
-    	            
-    	            misToimub.setText("<html><body><div style='text-align: center;'>"+tekst+"</div></body></html>");
-    	            
+    	            if (lihtneSundmus != "") tekst = lihtneSundmus; else tekst = PompsuInfo.otsinguTulemus();
+    	            misToimub.setText("<html><div style='text-align: center;'>"+tekst+"</div></html>");
     	            rahaSeis.setText(String.valueOf(PompsuInfo.raha()+"€"));
     	            pudelid.setText(String.valueOf(PompsuInfo.pudeleid()));
     	            repaint();
     	        }
     	    });
     		
-    		// myyPudelid click -> myyPudelid()
+    		/** ActionListener pudelite müümis nupule. Lisab raha ja uuendab raha ja pudelite arvu liideses. */
     		myyPudelid.addActionListener(new ActionListener() {
     	        public void actionPerformed(ActionEvent arg0) {
     	        	PompsuInfo.myyPudelid();
@@ -235,7 +188,7 @@ public class PompsuSimulaator extends JFrame {
     	        }
     	    });
     		
-    		// ostaPilet click -> soidaJargmisesse()
+    		/** ActionListener pileti ostmis nupule. Muudab kasutajaliideses tekstid ja numbrid. */
     		ostaPilet.addActionListener(new ActionListener() {
     	        public void actionPerformed(ActionEvent arg0) {
     	        	misToimub.setText(PompsuInfo.soidaJargmisesse());
@@ -245,20 +198,29 @@ public class PompsuSimulaator extends JFrame {
     	        	jargminePeatus.setText(PompsuInfo.asukohaInfo("jargmiseNimi"));
     	        	ostaPilet.setEnabled(false);
     	        	asukohaKirjeldus.setText(PompsuInfo.asukohaKirjeldus());
-    	        	muudaTaust("taust2.jpg");
+    	        	if (PompsuInfo.asukoht == 1) muudaTaust("taust2.jpg");
     	            repaint();
     	        }
     	    });
 
         }
         
-		// Seab komponendi suuruse
+		/**
+		 * Muudab komponendi suurust aknas
+		 * @param comp Komponent mida muuta
+		 * @param w Laius
+		 * @param h Kõrgus
+		 */
     	private void seaSuurus(Component comp, int w, int h) {
     		comp.setMinimumSize(new Dimension(w, h));
     		comp.setPreferredSize(new Dimension(w, h));
     		comp.setMaximumSize(new Dimension(w, h));
     	}
     	
+    	/**
+    	 * Muudab taustapilti
+    	 * @param pilt Taustapildi faili täisnimi
+    	 */
     	private void muudaTaust (String pilt) {
     		try {
             	setIcon(new ImageIcon(ImageIO.read(getClass().getResource("/"+pilt))));

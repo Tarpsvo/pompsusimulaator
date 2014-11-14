@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 public class PompsuEventid {
 
 	public static void eventiKontroll() {
-		if (kasJuhtus(10)) event1();
+		if (kasJuhtus(1)) event1();
 	}
 	
 	// Bussijaamas magav kodutu

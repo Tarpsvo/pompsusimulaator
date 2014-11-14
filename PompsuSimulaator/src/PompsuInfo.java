@@ -21,24 +21,28 @@ public class PompsuInfo {
 	private static String[] asukohad = {	// Asukohtade NIMED
 		"Kivimäe pood",
 		"Nõmme Comarket",
+		"Valdeku Maxima",
 		"Kadaka Selver"
 	};
 	
 	private static int[] asukohaHinnad = { // Asukohta sõitmise HINNAD
 		0,
 		1,
+		1,
 		3
 	};
 	
 	private static int[] maxPudeleid = {	// Maksimaalne pudelite arv
+		2,
 		2,
 		3,
 		5
 	};
 	
 	private static double[] pudeliHind = { // Ühe pudeli hind
+		0.21,
 		0.02,
-		0.02,
+		0.03,
 		0.03
 	};
 	
@@ -139,9 +143,9 @@ public class PompsuInfo {
 	public static String asukohaKirjeldus() {
 		String esimeneSona[] = asukohad[asukoht].split(" ", 2);
 		return "<html><body>"
-				+ "<div style='text-align: center; font-size: 9px;'>"
+				+ "<div style='text-align: center; font-size: 8px;'>"
 				+ "Koha "+asukohad[asukoht]+" läheduses pudeleid otsides võid iga otsimiskorraga leida kuni "
-				+ "<span style='font-size: 11px; color: #f29324;'>"+maxPudeleid[asukoht]+"</span> pudelit."
+				+ "<span style='font-size: 9px; color: #f29324;'>"+maxPudeleid[asukoht]+"</span> pudelit."
 				+ "<br>"
 				+ esimeneSona[0]+" taaraautomaat annab sulle <span style='font-size: 11px; color: #f29324;'>"+pudeliHind[asukoht]+"€</span> iga pudeli eest.";
 	}
