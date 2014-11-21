@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,6 +25,10 @@ public class PompsuSimulaator extends JFrame {
 		 */
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				} catch (Exception ex) {}
+				
 				GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(PompsuStiil.OpenSans);
 				JFrame aken = new JFrame("Pompsusimulaator " + PompsuInfo.versioon);
 				aken.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
