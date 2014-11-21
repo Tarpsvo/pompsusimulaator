@@ -14,6 +14,8 @@ public class PompsuInfo {
 	private static double lihtsaSundmuseVoimalus = 0.03;
 
 	// Mängu sisu info massiivid
+	
+	// TODO Luua asukohad klassiks, millel on vastavad omadused
 	private static String[] asukohad = { // Asukohtade nimed
 	"Kivimäe pood", "Nõmme Comarket", "Valdeku Maxima", "Kadaka Selver" };
 

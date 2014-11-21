@@ -10,9 +10,7 @@ public class PompsuSimulaator extends JFrame {
 
 	/**
 	 * Käivitab programmi
-	 * 
-	 * @param args
-	 *            Käsurealt saadav info
+	 * @param args Käsurealt saadav info
 	 */
 	public static void main(String[] args) {
 		new PompsuSimulaator();
@@ -42,16 +40,18 @@ public class PompsuSimulaator extends JFrame {
 	 * Mängu pane ehk kiht (ainult üks on ja ühte on vaja)
 	 */
 	public class manguPane extends JLabel {
+		
+		final JLabel misToimub = new JLabel(PompsuInfo.misToimubTekst, JLabel.CENTER);
 
 		/** Konstruktor, mis loob kihi */
 		public manguPane() {
 			// Seda on vaja, et <html> tagid ei muudaks fonti
+
 			putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
 			muudaTaust("taust.jpg");
 
 			// // Akna komponendid
 			// Esimene rida:
-			final JLabel misToimub = new JLabel(PompsuInfo.misToimubTekst, JLabel.CENTER);
 
 			// Teine rida:
 			final JLabel pudelidTekst = new JLabel("Pudeleid", JLabel.CENTER);
@@ -161,7 +161,7 @@ public class PompsuSimulaator extends JFrame {
 
 			// // ActionListenerid (ehk klikid)
 			/**
-			 * ActionListener otsimisnupule.
+			 * ActionListener otsimisnupule. Lisab pudeleid, kuvab teksti.
 			 */
 			otsiPudeleid.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -213,8 +213,8 @@ public class PompsuSimulaator extends JFrame {
 			});
 
 			/**
-			 * ActionListener pileti ostmis nupule. Muudab kasutajaliideses
-			 * tekstid ja numbrid.
+			 * ActionListener pileti ostmis nupule.
+			 * Muudab kasutajaliideses tekstid ja numbrid.
 			 */
 			ostaPilet.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -227,6 +227,7 @@ public class PompsuSimulaator extends JFrame {
 
 					if (PompsuInfo.asukoht == 1)
 						muudaTaust("taust2.jpg");
+					
 					if (PompsuInfo.pudeleid() != 0)
 						myyPudelid.setEnabled(true);
 					if (!PompsuInfo.viimane()
@@ -242,14 +243,10 @@ public class PompsuSimulaator extends JFrame {
 		}
 
 		/**
-		 * Muudab komponendi suurust aknas.
-		 * 
-		 * @param comp
-		 *            Komponent, mille suurust muudetakse
-		 * @param w
-		 *            Laius
-		 * @param h
-		 *            Kõrgus
+		 * Muudab komponendi suurust aknas
+		 * @param comp Komponent, mille suurust muudetakse
+		 * @param w Laius
+		 * @param h Kõrgus
 		 */
 		private void seaSuurus(Component comp, int w, int h) {
 			comp.setMinimumSize(new Dimension(w, h));
@@ -259,9 +256,7 @@ public class PompsuSimulaator extends JFrame {
 
 		/**
 		 * Muudab taustapilti
-		 * 
-		 * @param pilt
-		 *            Faili täisnimi
+		 * @param pilt Faili täisnimi
 		 */
 		private void muudaTaust(String pilt) {
 			try {
