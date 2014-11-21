@@ -5,7 +5,7 @@ public class PompsuEventid {
 
 	public static String eventiKontroll() {
 		String tekst = "";
-		if (kasJuhtus(1)) {
+		if (kasJuhtus(25)) {
 			tekst = event1();
 		}
 		return tekst;
@@ -49,9 +49,16 @@ public class PompsuEventid {
 		String syndmusTekst = tulemused[nr][0];
 		double tulemus = PompsuInfo.teostaTulemus(tulemused[nr][1], tulemused[nr][2]);
 		if (tulemus != 0) {
-		tulemus = (tulemused[nr][1] == "pudel") ? (int) tulemus : tulemus;
-		syndmusTekst += (tulemus > 0) ? " Said "+tulemus : " Kaotasid "+Math.abs(tulemus);
-		syndmusTekst += (tulemused[nr][1] == "raha") ? " eurot." : " pudelit.";
+			if (tulemused[nr][1] == "pudel") {
+				syndmusTekst += (tulemus > 0) ? " Said "+(int)tulemus : " Kaotasid "+(int)Math.abs(tulemus);
+			} else {
+				syndmusTekst += (tulemus > 0) ? " Said "+tulemus : " Kaotasid "+Math.abs(tulemus);
+			}
+			if (Math.abs(tulemus) == 1) {
+				syndmusTekst += (tulemused[nr][1] == "raha") ? " euro." : " pudeli.";
+			} else {
+				syndmusTekst += (tulemused[nr][1] == "raha") ? " eurot." : " pudelit.";
+			}
 		}
 		return syndmusTekst;
 	}

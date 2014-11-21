@@ -40,35 +40,31 @@ public class PompsuSimulaator extends JFrame {
 	 * Mängu pane ehk kiht (ainult üks on ja ühte on vaja)
 	 */
 	public class manguPane extends JLabel {
-		
-		final JLabel misToimub = new JLabel(PompsuInfo.misToimubTekst, JLabel.CENTER);
+		PompsuAsukoht asukoht = new PompsuAsukoht();
+		//// Akna komponendid
+		// Esimene rida:
+		final JLabel misToimub = new JLabel("Ärkad pärast joomingut kivimäe poe juures üles...", JLabel.CENTER);
+		// Teine rida:
+		final JLabel pudelidTekst = new JLabel("Pudeleid", JLabel.CENTER);
+		final JLabel pudelid = new JLabel("" + PompsuInfo.pudeleid(), JLabel.CENTER);
+		final JLabel rahaTekst = new JLabel("Raha", JLabel.CENTER);
+		final JLabel rahaSeis = new JLabel(PompsuInfo.raha() + "€", JLabel.CENTER);
+		final JLabel hetkeAsukoht = new JLabel(asukoht.nimi(), JLabel.CENTER);
+		final JButton myyPudelid = new JButton("Müü pudelid");
+		final JLabel asukohaKirjeldus = new JLabel(PompsuInfo.asukohaKirjeldus(), JLabel.CENTER);
+		// Kolmas rida:
+		final JLabel jargminePeatus = new JLabel(asukoht.jargmiseNimi(), JLabel.CENTER);
+		final JButton ostaPilet = new JButton(asukoht.ostaPiletTekst());
+		// Neljas rida:
+		final JButton otsiPudeleid = new JButton("Otsi pudeleid");
 
 		/** Konstruktor, mis loob kihi */
 		public manguPane() {
+			
 			// Seda on vaja, et <html> tagid ei muudaks fonti
-
 			putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
 			muudaTaust("taust.jpg");
-
-			// // Akna komponendid
-			// Esimene rida:
-
-			// Teine rida:
-			final JLabel pudelidTekst = new JLabel("Pudeleid", JLabel.CENTER);
-			final JLabel pudelid = new JLabel("" + PompsuInfo.pudeleid(), JLabel.CENTER);
-			final JLabel rahaTekst = new JLabel("Raha", JLabel.CENTER);
-			final JLabel rahaSeis = new JLabel(PompsuInfo.raha() + "€", JLabel.CENTER);
-			final JLabel hetkeAsukoht = new JLabel(PompsuInfo.asukohaInfo("nimi"), JLabel.CENTER);
-			final JButton myyPudelid = new JButton("Müü pudelid");
-			final JLabel asukohaKirjeldus = new JLabel(PompsuInfo.asukohaKirjeldus(), JLabel.CENTER);
-
-			// Kolmas rida:
-			final JLabel jargminePeatus = new JLabel(PompsuInfo.asukohaInfo("jargmiseNimi"), JLabel.CENTER);
-			final JButton ostaPilet = new JButton(PompsuInfo.asukohaInfo("jargmiseHindOsta"));
-
-			// Neljas rida:
-			final JButton otsiPudeleid = new JButton("Otsi pudeleid");
-
+			
 			// // Komponentide stiilid
 			PompsuStiil.muudaStiil(true, 12, misToimub, rahaSeis, pudelid);
 			PompsuStiil.muudaStiil(false, 13, pudelidTekst, rahaTekst);
@@ -180,6 +176,7 @@ public class PompsuSimulaator extends JFrame {
 
 					misToimub.setText("<html><div style='text-align: center;'>" + tekst + "</div></html>");
 					rahaSeis.setText(String.valueOf(PompsuInfo.raha() + "€"));
+					System.out.println(PompsuInfo.raha());
 					pudelid.setText(String.valueOf(PompsuInfo.pudeleid()));
 
 					if (PompsuInfo.pudeleid() != 0)
@@ -201,13 +198,7 @@ public class PompsuSimulaator extends JFrame {
 					rahaSeis.setText(String.valueOf(PompsuInfo.raha() + "€"));
 					misToimub.setText(uusTekst);
 
-					myyPudelid.setEnabled(false);
-					if (!PompsuInfo.viimane()
-							&& PompsuInfo.raha() >= Integer.parseInt(PompsuInfo.asukohaInfo("jargmiseHind"))) {
-						ostaPilet.setEnabled(true);
-					} else {
-						ostaPilet.setEnabled(false);
-					}
+					kontrolliNuppe();
 					repaint();
 				}
 			});
@@ -220,26 +211,34 @@ public class PompsuSimulaator extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					misToimub.setText(PompsuInfo.soidaJargmisesse());
 					rahaSeis.setText(String.valueOf(PompsuInfo.raha() + "€"));
-					hetkeAsukoht.setText(PompsuInfo.asukohaInfo("nimi"));
-					ostaPilet.setText(PompsuInfo.asukohaInfo("jargmiseHindOsta"));
-					jargminePeatus.setText(PompsuInfo.asukohaInfo("jargmiseNimi"));
+					hetkeAsukoht.setText(asukoht.nimi());
+					ostaPilet.setText(asukoht.ostaPiletTekst());
+					jargminePeatus.setText(asukoht.jargmiseNimi());
 					asukohaKirjeldus.setText(PompsuInfo.asukohaKirjeldus());
 
-					if (PompsuInfo.asukoht == 1)
-						muudaTaust("taust2.jpg");
+					if (asukoht.asukohaNr() == 1) muudaTaust("taust2.jpg");
+					if (asukoht.asukohaNr() == 2) muudaTaust("taust3.jpg");
 					
-					if (PompsuInfo.pudeleid() != 0)
-						myyPudelid.setEnabled(true);
-					if (!PompsuInfo.viimane()
-							&& PompsuInfo.raha() >= Integer.parseInt(PompsuInfo.asukohaInfo("jargmiseHind"))) {
-						ostaPilet.setEnabled(true);
-					} else {
-						ostaPilet.setEnabled(false);
-					}
+					kontrolliNuppe();
 					repaint();
 				}
 			});
 
+		}
+		
+		private void kontrolliNuppe() {
+			if (!asukoht.viimane()
+					&& PompsuInfo.raha() >= asukoht.soiduHind()) {
+				ostaPilet.setEnabled(true);
+			} else {
+				ostaPilet.setEnabled(false);
+			}
+			
+			if (PompsuInfo.pudeleid() > 0) {
+				myyPudelid.setEnabled(true);
+			} else {
+				myyPudelid.setEnabled(false);
+			}
 		}
 
 		/**
