@@ -176,7 +176,6 @@ public class PompsuSimulaator extends JFrame {
 
 					misToimub.setText("<html><div style='text-align: center;'>" + tekst + "</div></html>");
 					rahaSeis.setText(String.valueOf(PompsuInfo.raha() + "€"));
-					System.out.println(PompsuInfo.raha());
 					pudelid.setText(String.valueOf(PompsuInfo.pudeleid()));
 
 					if (PompsuInfo.pudeleid() != 0)

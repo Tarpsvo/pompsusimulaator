@@ -5,7 +5,7 @@ public class PompsuEventid {
 
 	public static String eventiKontroll() {
 		String tekst = "";
-		if (kasJuhtus(25)) {
+		if (kasJuhtus(1)) {
 			tekst = event1();
 		}
 		return tekst;
@@ -22,7 +22,7 @@ public class PompsuEventid {
 
 		String[][] tulemused2 = {
 				{"Mehe taskutes sobrades lööd teda kogemata küünernukiga näkku ja kaod nagu tuul.", null, null},
-				{"Mehe jopetaskust leiad peotäie sente.", "raha", "+0.5"}
+				{"Mehe jopetaskust leiad peotäie sente.", "raha", "+0.3"}
 		};
 		Object[] valikud = {
 				"Võta mehe taarakott",

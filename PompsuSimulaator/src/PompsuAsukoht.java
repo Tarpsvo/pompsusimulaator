@@ -13,12 +13,12 @@ public class PompsuAsukoht {
 		private int[] asukohaHinnad = { // Asukohta sõitmise hinnad
 			0,	// Kivimäe
 			1,	// Nõmme
-			1,	// Valdeku
-			3	// Kadaka
+			3,	// Valdeku
+			5	// Kadaka
 			};
 
 		private int[] maxPudeleid = { // Maksimaalne pudelite arv
-			3,	// Kivimäe
+			2,	// Kivimäe
 			3,	// Nõmme
 			4,	// Valdeku
 			5	// Kadaka
@@ -27,7 +27,7 @@ public class PompsuAsukoht {
 		private double[] pudeliHind = { // Ühe pudeli eest saadav raha
 			0.01,	// Kivimäe
 			0.02,	// Nõmme
-			0.03,	// Valdeku
+			0.02,	// Valdeku
 			0.03 	// Kadaka
 			};
 		
